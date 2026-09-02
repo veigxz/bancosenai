@@ -50,6 +50,7 @@ namespace BancoSENAIAPI.Controllers
 
             if (agenciaExistente == null) return NotFound();
 
+            agenciaExistente.NumeroAgencia = agenciaAtualizada.NumeroAgencia; //Possibilita a alteração do número da agência.
             agenciaExistente.Cidade = agenciaAtualizada.Cidade;
             agenciaExistente.SiglaEstado = agenciaAtualizada.SiglaEstado;
 
