@@ -59,7 +59,7 @@ namespace BancoSENAIAPI.Controllers
         public async Task<IActionResult> ListarArquivos(int codigoCliente)
         {
 
-            var documentos = _documentosMetadados.Where(d => d.CodigoCliente == codigoCliente).ToList();
+            var documentos = _documentosMetadados.Where(d => d.CodigoCliente == codigoCliente).ToList();    
             
             if(!documentos.Any() || documentos.Count == 0)
             {
@@ -67,6 +67,21 @@ namespace BancoSENAIAPI.Controllers
             }
 
             return Ok(documentos);
+        }
+
+        [HttpGet("download/{id}")]
+        public async Task<IActionResult> DownloadArquivos(int id)
+        {
+            var documento = _documentosMetadados.FirstOrDefault(d => d.Id == id);
+
+            if (!System.IO.File.Exists(documento.Caminho))
+            {
+                return NotFound("Arquivo não encontrado.");
+            }
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(documento.Caminho);
+
+            return File(fileBytes, "application/octet-stream", documento.Name);
         }
     }
 }
