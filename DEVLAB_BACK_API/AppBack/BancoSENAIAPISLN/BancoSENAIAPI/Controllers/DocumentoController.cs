@@ -74,7 +74,7 @@ namespace BancoSENAIAPI.Controllers
         {
             var documento = _documentosMetadados.FirstOrDefault(d => d.Id == id);
 
-            if (!System.IO.File.Exists(documento.Caminho))
+            if (documento == null)
             {
                 return NotFound("Arquivo não encontrado.");
             }
@@ -82,6 +82,27 @@ namespace BancoSENAIAPI.Controllers
             byte[] fileBytes = System.IO.File.ReadAllBytes(documento.Caminho);
 
             return File(fileBytes, "application/octet-stream", documento.Name);
+        }
+
+        [HttpDelete("excluir/{id}")]
+        public async Task<IActionResult> ExcluirArquivo(int id)
+        {
+            var documento = _documentosMetadados.FirstOrDefault(d => d.Id == id);
+
+            if (documento == null)
+            {
+                return NotFound("Arquivo não encontrado.");
+            }
+
+            if (System.IO.File.Exists(documento.Caminho))
+            {
+                System.IO.File.Delete(documento.Caminho);
+            }
+
+            _documentosMetadados.Remove(documento);
+
+
+            return Ok(new {mensagem = "Documento Excluído com Sucesso" });
         }
     }
 }
