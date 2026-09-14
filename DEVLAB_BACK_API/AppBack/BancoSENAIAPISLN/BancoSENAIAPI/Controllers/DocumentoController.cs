@@ -54,5 +54,55 @@ namespace BancoSENAIAPI.Controllers
             return Ok(new { mensagem = "Documento anexado com sucesso", arquivoSalvo = novoNome });
 
         }
+
+        [HttpGet("listar/{codigoCliente}")]
+        public async Task<IActionResult> ListarArquivos(int codigoCliente)
+        {
+
+            var documentos = _documentosMetadados.Where(d => d.CodigoCliente == codigoCliente).ToList();    
+            
+            if(!documentos.Any() || documentos.Count == 0)
+            {
+                return NotFound("Nenhum arquivo encontrado");
+            }
+
+            return Ok(documentos);
+        }
+
+        [HttpGet("download/{id}")]
+        public async Task<IActionResult> DownloadArquivos(int id)
+        {
+            var documento = _documentosMetadados.FirstOrDefault(d => d.Id == id);
+
+            if (documento == null)
+            {
+                return NotFound("Arquivo não encontrado.");
+            }
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(documento.Caminho);
+
+            return File(fileBytes, "application/octet-stream", documento.Name);
+        }
+
+        [HttpDelete("excluir/{id}")]
+        public async Task<IActionResult> ExcluirArquivo(int id)
+        {
+            var documento = _documentosMetadados.FirstOrDefault(d => d.Id == id);
+
+            if (documento == null)
+            {
+                return NotFound("Arquivo não encontrado.");
+            }
+
+            if (System.IO.File.Exists(documento.Caminho))
+            {
+                System.IO.File.Delete(documento.Caminho);
+            }
+
+            _documentosMetadados.Remove(documento);
+
+
+            return Ok(new {mensagem = "Documento Excluído com Sucesso" });
+        }
     }
 }
