@@ -1,0 +1,15 @@
+body { font-family: Arial, sans-serif; padding: 20px; }
+h1 { color: #003366; }
+
+.form-container { 
+    margin-bottom: 30px; 
+    background: #f9f9f9; 
+    padding: 15px; 
+    border-radius: 5px; 
+}
+
+input { 
+    padding: 8px; 
+    margin-right: 10px; 
+    border: 1px solid #ccc; 
+}
