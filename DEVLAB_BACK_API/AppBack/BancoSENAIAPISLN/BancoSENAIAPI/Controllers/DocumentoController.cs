@@ -30,16 +30,22 @@ namespace BancoSENAIAPI.Controllers
             {
                 Directory.CreateDirectory(pastaCliente);
             }
-            string extensao = Path.GetExtension(pastaCliente);
+            string extensao = Path.GetExtension(arquivo.FileName);
             string nomeOriginal = Path.GetFileNameWithoutExtension(arquivo.FileName);
             string novoNome = $"{codigoCliente}_{nomeOriginal}_{Guid.NewGuid()}{extensao}";
             string caminhoFinal = Path.Combine(pastaCliente, novoNome);
 
             long limiteBytes = 2 * 1024 * 1024;
 
-            if(arquivo.Length > limiteBytes)
+            string[] extensoesPermitidas = { ".jpg", ".pdf", ".png" };
+
+            if (arquivo.Length > limiteBytes)
             {
-                return BadRequest(new { mensagem = "Limite do tamanho do arquivo excedido" });
+                return BadRequest(new { mensagem = "Arquivo não anexado! O arquivo excede o limite máximo de armazenamento de 2 MB." });
+            }
+            if (!extensoesPermitidas.Contains(extensao.ToLower()))
+            {
+                return BadRequest(new { mensagem = "Formato de arquivo não suportado. Envie um arquivo PDF, JPG ou PNG." });
             }
 
             using (var stream = new FileStream(caminhoFinal, FileMode.Create))
