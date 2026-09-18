@@ -27,3 +27,23 @@ async function enviarDocumento() {
         alert("Erro: "+ (erro.message || "Falha ao enviar o arquivo!"))
     }
 }
+
+async function listarArquivos() {
+
+    codigoClienteBusca = document.getElementById('codigoClienteBusca').value
+    const response = await fetch(`${URL_API}/listar/${codigoClienteBusca}`)
+
+    const arquivos = await response.json();
+    const corpoTable = document.getElementById('corpoTabela');
+
+    arquivos.forEach(c => {
+        corpoTable.innerHTML += `
+                <td>${c.id}</td>
+                <td>${c.name}</td>
+                <td>${c.extensao}</td>
+                <td>
+                    <button class="btn-baixar" onclick="baixarArquivo(${c.id})">Baixar</button>
+                    <button class="btn-excluir" onclick="excluirArquivo(${c.id})">Excluir</button>
+                </td>`;
+    });
+}
