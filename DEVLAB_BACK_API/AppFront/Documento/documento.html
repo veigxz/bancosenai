@@ -15,6 +15,28 @@
         <button id="btEnviar" onclick="enviarDocumento()">Enviar</button>
     </div>
 
+    <div class="form-container">
+        <input type="number" id="codigoClienteBusca" placeholder="Código do Cliente">
+        <button id="btBuscar" onclick="listarArquivos()">Buscar</button>
+    </div>
+    
+
+    <table id="tabelaArquivos">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Extensão</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="corpoTabela">
+           
+        </tbody>
+    </table>
+
+    
+
     <script src="../Documento/documento.js"></script>
 </body>
 </html>

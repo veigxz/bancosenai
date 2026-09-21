@@ -63,6 +63,7 @@ namespace BancoSENAIAPI.Controllers
             };
 
             _documentosMetadados.Add(documentoMetadados);
+            _nextId += 1;
 
             return Ok(new { mensagem = "Documento anexado com sucesso", arquivoSalvo = novoNome });
 

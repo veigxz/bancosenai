@@ -13,3 +13,15 @@ input {
     margin-right: 10px; 
     border: 1px solid #ccc; 
 }
+
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+th { background-color: #003366; color: white; }
+
+tr:nth-child(even) { background-color: #f2f2f2; }
+tr:hover { background-color: #ddd; }
+
+button { padding: 8px 15px; cursor: pointer; border: none; border-radius: 3px; }
+#btnSalvar { background-color: #28a745; color: white; }
+.btn-baixar { background-color: #ffc107; margin-right: 5px; }
+.btn-excluir { background-color: #dc3545; color: white; }
