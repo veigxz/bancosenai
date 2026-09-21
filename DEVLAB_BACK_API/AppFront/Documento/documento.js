@@ -59,3 +59,26 @@ async function baixarArquivo(id) {
         alert("Erro ao baixar o documento.");
     }
 }
+
+async function excluirArquivo(id) {
+    if (!confirm("Tem certeza que deseja excluir este documento?")) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${URL_API}/excluir/${id}`, {
+            method: "DELETE"
+        });
+
+        if (response.ok) {
+            alert("Documento excluído com sucesso!");
+        } else {
+            const erro = await response.text();
+            console.error("Erro da API:", response.status, erro);
+            alert(`Erro ao excluir: ${response.status}`);
+        }
+    } catch (error) {
+        console.error("Erro ao excluir:", error);
+        alert("Erro ao conectar com o servidor.");
+    }
+}
