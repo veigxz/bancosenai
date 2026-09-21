@@ -22,6 +22,8 @@ async function enviarDocumento() {
         alert("Documento enviado com sucesso!");
         document.getElementById("codigoCliente").value = "";
         document.getElementById("arquivo").value = "";
+        document.getElementById('codigoClienteBusca').value = codigoCliente;
+        listarArquivos()
     } else{
         const erro = await response.json();
         alert("Erro: "+ (erro.message || "Falha ao enviar o arquivo!"))
@@ -72,6 +74,7 @@ async function excluirArquivo(id) {
 
         if (response.ok) {
             alert("Documento excluído com sucesso!");
+            listarArquivos();
         } else {
             const erro = await response.text();
             console.error("Erro da API:", response.status, erro);
