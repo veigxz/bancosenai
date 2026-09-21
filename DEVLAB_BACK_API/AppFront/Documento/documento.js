@@ -36,6 +36,8 @@ async function listarArquivos() {
     const arquivos = await response.json();
     const corpoTable = document.getElementById('corpoTabela');
 
+    corpoTable.innerHTML = ''; 
+
     arquivos.forEach(c => {
         corpoTable.innerHTML += `
                 <td>${c.id}</td>
@@ -46,4 +48,14 @@ async function listarArquivos() {
                     <button class="btn-excluir" onclick="excluirArquivo(${c.id})">Excluir</button>
                 </td>`;
     });
+}
+
+async function baixarArquivo(id) {
+    
+
+   try {
+        window.open(`${URL_API}/download/${id}`, "_blank");
+    } catch (error) {
+        alert("Erro ao baixar o documento.");
+    }
 }
