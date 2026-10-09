@@ -48,7 +48,7 @@ namespace BancoSENAIAPI.Controllers
         {
            var usuario = await _context.Usuario.FirstOrDefaultAsync(u => u.NomeUsuario == dto.NomeUsuario);
 
-           if(usuario == null || BCrypt.Net.BCrypt.Verify(dto.Senha, usuario.SenhaHash))
+           if(usuario == null || !BCrypt.Net.BCrypt.Verify(dto.Senha, usuario.SenhaHash))
            {
                 return Unauthorized(new { message = "Usuário ou senha inválidos"});
            }
