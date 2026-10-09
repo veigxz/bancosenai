@@ -4,7 +4,6 @@ using BancoSENAIAPI.Models;
 using BancoSENAIAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFramewokCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
@@ -22,6 +21,8 @@ namespace BancoSENAIAPI.Controllers
             _context = context;
             _tokenService = tokenService;
         }
+
+        [AllowAnonymous]
         [HttpPost("registrar")]
         public async Task<IActionResult> Registrar([FromBody] RegisterRequest dto)
         {
@@ -41,6 +42,7 @@ namespace BancoSENAIAPI.Controllers
 
             return Created("", new { usuario.Id, usuario.NomeUsuario });
         }
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto dto)
         {

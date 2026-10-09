@@ -1,5 +1,6 @@
 ﻿using BancoSENAIAPI.Data;
 using BancoSENAIAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ namespace BancoSENAIAPI.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class CarteiraController : ControllerBase
     {
 
